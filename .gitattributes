@@ -1,0 +1,17 @@
+* text=auto
+*.c text
+*.h text
+*.cpp text
+*.hpp text
+*.java text
+*.xml text
+*.gradle text
+*.properties text
+*.yml text
+*.txt text
+*.md text
+*.sh text eol=lf
+*.bat text eol=crlf
+*.sln text eol=crlf
+*.png binary
+*.jpg binary
