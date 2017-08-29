@@ -7,7 +7,6 @@
             <level>ERROR</level>
             <level>WARN</level>
             <level>INFO</level>
-            <level>DEBUG</level>
         </filter>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%class{0}] [%level] - %m%n</pattern>

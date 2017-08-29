@@ -20,7 +20,7 @@ public class Application {
             final HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, resourceConfig, false);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> httpServer.shutdownNow()));
             httpServer.start();
-            logger.info("com.gonwan.restful.jersey.Application started.");
+            logger.info("Application started.");
             logger.info("Try out {}", BASE_URI);
             Thread.currentThread().join();
         } catch (IOException | InterruptedException e) {
