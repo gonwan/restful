@@ -8,13 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.stream.Stream;
 
 @RequestMapping(path = "/api")
 @RestController
 public class ApiController {
 
-    public static final Logger logger = LoggerFactory.getLogger(ApiController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
     private MysqlClient mysqlClient;
@@ -28,8 +30,11 @@ public class ApiController {
     }
 
     @RequestMapping(path = "/v2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getV2() {
-        return "";
+    public Callable<ApiStreamResponse> getV2() {
+        return () -> {
+            Stream<Map> r = mysqlClient.executeToStream(MysqlClient.SQL);
+            return new ApiStreamResponse(r);
+        };
     }
 
     @RequestMapping(path = "/v3", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

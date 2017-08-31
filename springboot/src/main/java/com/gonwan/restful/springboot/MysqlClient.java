@@ -16,6 +16,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Component
 public class MysqlClient {
@@ -24,6 +26,10 @@ public class MysqlClient {
     public static final String SQL = "select * from user";
     //public static final String SQL = "select Bond_Key,Bond_Type,Bond_Subtype,Bond_ID,Interest_Start_Date,Maturity_Date,Coupon_Frequency,Currency,Interest_Basis,First_Coupon_Date,Coupon_Type,Redemption_Str,Coupon_Rate_Spread,FRN_Index_ID,Fixing_MA_Days,Fixing_Preceds,Fixing_Digit,Cap,Flr,Option_Style,Option_Type,Compensate_From,Compensate_Rate,Call_Str,Put_Str,Assign_Trans_Str,Issue_Price,Issue_Rate from bond where delflag = 0 limit 0,10000";
 
+    /**
+     * Here, we do not use JdbcTemplate, but a raw DataSource, since we will maintain the lifecycle of
+     * connections and statements manually when returning Java 8 streams. Just keep consistence here.
+     */
     @Autowired
     private DataSource dataSource;
 
@@ -32,14 +38,6 @@ public class MysqlClient {
      * @see {@link com.fasterxml.jackson.databind.ser.std.StdJdkSerializers}
      */
     private static JsonFactory jsonFactory = new JsonFactory(new ObjectMapper());
-
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            logger.error("", e);
-        }
-    }
 
     public Pair<String, Long> executeToJson(String sql) {
         StringBuffer result = new StringBuffer();
@@ -71,6 +69,15 @@ public class MysqlClient {
             logger.warn("", e);
         }
         return Pair.of(result.toString(), size);
+    }
+
+    public Stream<Map> executeToStream(String sql) {
+        try {
+            return new MysqlStreamTemplate(dataSource).query(sql);
+        } catch (SQLException e) {
+            logger.warn("", e);
+            return Stream.empty();
+        }
     }
 
 }
