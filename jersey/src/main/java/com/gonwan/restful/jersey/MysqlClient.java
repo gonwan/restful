@@ -26,10 +26,10 @@ import java.sql.Statement;
 public class MysqlClient {
 
     private static final Logger logger = LoggerFactory.getLogger(MysqlClient.class);
-    public static final String URL = "jdbc:mysql://172.16.66.120:3306/mysql?user=artogrid&password=artogrid&useUnicode=true&characterEncoding=utf8";
-    public static final String SQL = "select * from user";
-    //public static final String URL = "jdbc:mysql://172.16.66.120:3306/ss_product?user=artogrid&password=artogrid&useUnicode=true&characterEncoding=utf8";
-    //public static final String SQL = "select Bond_Key,Bond_Type,Bond_Subtype,Bond_ID,Interest_Start_Date,Maturity_Date,Coupon_Frequency,Currency,Interest_Basis,First_Coupon_Date,Coupon_Type,Redemption_Str,Coupon_Rate_Spread,FRN_Index_ID,Fixing_MA_Days,Fixing_Preceds,Fixing_Digit,Cap,Flr,Option_Style,Option_Type,Compensate_From,Compensate_Rate,Call_Str,Put_Str,Assign_Trans_Str,Issue_Price,Issue_Rate from bond where delflag = 0 limit 0,10000";
+    //public static final String URL = "jdbc:mysql://172.16.66.120:3306/mysql?user=artogrid&password=artogrid&useUnicode=true&characterEncoding=utf8";
+    //public static final String SQL = "select * from user";
+    public static final String URL = "jdbc:mysql://172.16.66.120:3306/ss_product?user=artogrid&password=artogrid&useUnicode=true&characterEncoding=utf8";
+    public static final String SQL = "select Bond_Key,Bond_Type,Bond_Subtype,Bond_ID,Interest_Start_Date,Maturity_Date,Coupon_Frequency,Currency,Interest_Basis,First_Coupon_Date,Coupon_Type,Redemption_Str,Coupon_Rate_Spread,FRN_Index_ID,Fixing_MA_Days,Fixing_Preceds,Fixing_Digit,Cap,Flr,Option_Style,Option_Type,Compensate_From,Compensate_Rate,Call_Str,Put_Str,Assign_Trans_Str,Issue_Price,Issue_Rate from bond where delflag = 0 limit 0,10000";
 
     private static DataSource dataSource;
     /**

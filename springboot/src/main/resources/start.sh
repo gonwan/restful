@@ -4,7 +4,7 @@ start_dir=`pwd`
 cd `dirname "$0"`
 
 ./stop.sh
-JAVA_OPT="-server -d64 -Xms2G -Xmx5G -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:./gc.log"
+JAVA_OPT="-server -d64 -Xms2G -Xmx5G -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:./gc.log -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=6060 -Djava.rmi.server.hostname=172.16.66.170"
 nohup java $JAVA_OPT -Dlogback.configurationFile=file:../conf/logback.xml -cp ../conf:../lib/* com.gonwan.restful.springboot.Application &> nohup.out &
 
 curr_dir=`pwd`
