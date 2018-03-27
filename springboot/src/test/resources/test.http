@@ -1,0 +1,126 @@
+### login
+POST http://localhost:5050/api/login
+Content-Type: application/json
+
+{
+    "username":"test1",
+    "password":"123456"
+}
+
+### reload
+POST http://localhost:5050/api/reload
+Content-Type: application/json
+
+{
+    "username": "test2",
+    "password": "123456",
+    "dataType": "all"
+}
+
+### getrowcount
+POST http://localhost:5050/api/getrowcount
+Content-Type: application/json
+
+{
+    "apiName": "BOND_LIST_INFO",
+    "apiVersion": 0,
+    "username": "test2",
+    "password": "123456",
+    "startDate": "20180101",
+    "endDate": "20190101",
+    "conditions": null
+}
+
+### runapi
+POST http://localhost:5050/api/runapi
+Content-Type: application/json
+
+{
+    "apiName": "BOND_LIST_INFO",
+    "apiVersion": 0,
+    "username": "test2",
+    "password": "123456",
+    "startDate": "20180101",
+    "endDate": "20190101",
+    "conditions": null,
+    "startPage": 1,
+    "pageSize": 100
+}
+
+### runapi: ab -c 30 -n 3000 -T application/json -p runapi.json http://localhost:5050/api/runapi
+POST http://localhost:5050/api/runapi
+Content-Type: application/json
+
+{
+    "apiName": "BOND",
+    "apiVersion": 0,
+    "username": "test2",
+    "password": "123456",
+    "startDate": "",
+    "endDate": "",
+    "conditions": null,
+    "startPage": 4,
+    "pageSize": 1000,
+    "columns": [
+        "Bond_Key",
+        "Bond_Type",
+        "Bond_Subtype",
+        "Bond_ID",
+        "Interest_Start_Date",
+        "Maturity_Date",
+        "Coupon_Frequency",
+        "Currency",
+        "Interest_Basis",
+        "Issue_Price",
+        "Issue_Rate"
+    ]
+}
+
+### runapi: mysql user
+POST http://localhost:5050/api/runapi
+Content-Type: application/json
+
+{
+    "apiName": "mysql_user1",
+    "apiVersion": 0,
+    "username": "test2",
+    "password": "123456",
+    "columns": [ "User", "Host", "password_last_changed"],
+    "conditions": null,
+    "startPage": 1,
+    "pageSize": 100
+}
+
+### runapi: mysql user with mandatory condition
+POST http://localhost:5050/api/runapi
+Content-Type: application/json
+
+{
+    "apiName": "mysql_user2",
+    "apiVersion": 0,
+    "username": "test2",
+    "password": "123456",
+    "columns": [ "User", "Host", "password_last_changed"],
+    "conditions": "order by User desc",
+    "startPage": 1,
+    "pageSize": 100
+}
+
+### runapi: mysql user with date column
+POST http://localhost:5050/api/runapi
+Content-Type: application/json
+
+{
+    "apiName": "mysql_user3",
+    "apiVersion": 0,
+    "username": "test2",
+    "password": "123456",
+    "startDate": "20180101",
+    "endDate": "20190101",
+    "columns": [ "User", "Host", "password_last_changed"],
+    "conditions": null,
+    "startPage": 1,
+    "pageSize": 100
+}
+
+###

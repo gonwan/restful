@@ -12,6 +12,11 @@ target
 *.classpath
 *.settings
 
+# idea
+.idea
+*.iml
+
 # logs
 *.log*
 *.err
+.DS_Store
