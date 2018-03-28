@@ -6,7 +6,7 @@
     <groupId>com.gonwan</groupId>
     <artifactId>restful</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <modules>
         <module>jersey</module>
         <module>springboot</module>

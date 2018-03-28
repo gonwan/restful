@@ -28,7 +28,7 @@ public class MysqlClient {
 
     /**
      * Here, we do not use JdbcTemplate, but a raw DataSource, since we will maintain the lifecycle of
-     * connections and statements manually when returning Java 8 streams. Just keep consistence here.
+     * connections and statements manually when returning Java 8 streams. Just keep consistency here.
      */
     @Autowired
     private DataSource dataSource;

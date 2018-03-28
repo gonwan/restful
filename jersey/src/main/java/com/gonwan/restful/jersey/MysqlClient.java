@@ -39,14 +39,6 @@ public class MysqlClient {
     private static JsonFactory jsonFactory = new JsonFactory(new ObjectMapper());
     private static CsvFactory csvFactory = new CsvFactory(new CsvMapper());
 
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            logger.error("", e);
-        }
-    }
-
     private static DataSource getDataSource() {
         if (dataSource == null) {
             ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(URL, null);
