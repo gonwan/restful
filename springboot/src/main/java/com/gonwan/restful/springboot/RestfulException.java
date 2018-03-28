@@ -23,10 +23,10 @@ public class RestfulException extends RuntimeException {
         public static final RestfulException SYS_DATASOURCE_INVALID_SQL     = new RestfulException(90005, "Datasource invalid SQL");
         public static final RestfulException SYS_DATABASE_QUERY_ERROR       = new RestfulException(90006, "Database query error");
 
-        public static final RestfulException REQUEST_INVALID_JSON           = new RestfulException(10001, "无法解析请求中的Json字符串");
+        public static final RestfulException REQ_INVALID_JSON               = new RestfulException(10001, "Invalid JSON request");
         public static final RestfulException REQ_BEAN_VALIDATION_ERROR      = new RestfulException(10002, "Parameter validation error");
-        public static final RestfulException REQ_DATE_RANGE_ERROR           = new RestfulException(10004, "Date range error");
-        public static final RestfulException REQ_INVALID_QUERY_CONDITION    = new RestfulException(10005, "请求中包含非法查询条件");
+        public static final RestfulException REQ_DATE_RANGE_ERROR           = new RestfulException(10003, "Date range error");
+        public static final RestfulException REQ_INVALID_QUERY_CONDITION    = new RestfulException(10004, "Invalid query condition");
 
         public static final RestfulException USER_NOT_EXIST                 = new RestfulException(20001, "User not exist");
         public static final RestfulException USER_WRONG_PASSWORD            = new RestfulException(20002, "User wrong password");

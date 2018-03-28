@@ -254,7 +254,7 @@ public class SqlGenerator {
                     }
                 } catch (ParseException e) {
                     logger.warn("", e);
-                    throw RestfulException.Predefined.SYS_DATASOURCE_INVALID_SQL;
+                    throw RestfulException.Predefined.REQ_INVALID_QUERY_CONDITION;
                 }
             }
         }
