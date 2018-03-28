@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
+ * It is not possible for spring boot to trace async http requests.
+ * Even in HttpTraceFilter, it only works fine with sync requests.
+ * So, this ugly wrapper is created. Available debugging endpoints:
+ * - /actuator/httptrace
+ * - /actuator/metrics/http.server.requests
+ */
 public class RestfulCallable implements Callable<Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(RestfulCallable.class);
