@@ -30,6 +30,8 @@ public class Config {
 
     private String zookeeperMonitorPath;
 
+    private boolean datasourceProxyEnabled;
+
     @PostConstruct
     private void init() {
         instName = String.format("%s_%s:%d", appName, SystemUtils.getLocalHost(), port);
@@ -85,6 +87,14 @@ public class Config {
 
     public void setZookeeperMonitorPath(String zookeeperMonitorPath) {
         this.zookeeperMonitorPath = zookeeperMonitorPath;
+    }
+
+    public boolean isDatasourceProxyEnabled() {
+        return datasourceProxyEnabled;
+    }
+
+    public void setDatasourceProxyEnabled(boolean datasourceProxyEnabled) {
+        this.datasourceProxyEnabled = datasourceProxyEnabled;
     }
 
     public String getRedisPublishPrefix() {

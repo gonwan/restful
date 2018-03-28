@@ -146,11 +146,7 @@ public class MainService {
         /* run sql */
         TDataSource source = getDataSource(api.getDatasourceId(), api.getDatasourceDatabaseId());
         String sql = SqlGenerator.get(request, api, source.getDialect());
-        logger.info("Executing SQL: {}", sql);
-        long t0 = System.currentTimeMillis();
         long res = dbClient.getRowCount(source.getConnectionString(), source.getReadUsername(), source.getReadPassword(), sql);
-        long elapsed = System.currentTimeMillis() - t0;
-        logger.info("Executed SQL in {} ms", elapsed);
         return res;
     }
 
@@ -170,13 +166,9 @@ public class MainService {
         /* run sql */
         TDataSource source = getDataSource(api.getDatasourceId(), api.getDatasourceDatabaseId());
         String sql = SqlGenerator.get(request, api, source.getDialect());
-        logger.info("Executing SQL: {}", sql);
-        long t0 = System.currentTimeMillis();
         boolean streamContent = request.getPageSize() > config.getContentStreamThreshold();
         Object res = dbClient.runApi(source.getConnectionString(), source.getReadUsername(), source.getReadPassword(), sql, streamContent);
         long currentRowCount = request.getPageSize();
-        long elapsed = System.currentTimeMillis() - t0;
-        logger.info("Executed SQL in {} ms", elapsed);
         rowCountTask.add(username, currentRowCount);
         return res;
     }

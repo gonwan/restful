@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /*
  * TODO:
  * - password encryption.
- * - zipkin integration.
- * - dropwizard integration.
+ * - micrometer integration.
+ * - spring security??
  */
 @SpringBootApplication
 public class Application {

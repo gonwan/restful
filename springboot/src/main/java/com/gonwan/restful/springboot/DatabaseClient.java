@@ -20,9 +20,14 @@ import org.springframework.stereotype.Component;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import net.ttddyy.dsproxy.listener.logging.SLF4JLogLevel;
+import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
+
 @Component
 public class DatabaseClient {
 
+    @Autowired
+    private Config config;
     @Autowired
     private HikariConfig hikariConfig;
 
@@ -35,20 +40,24 @@ public class DatabaseClient {
             synchronized (this) {
                 sessionFactory = connectionMap.get(connectionString);
                 if (sessionFactory == null) {
-                    HikariConfig config = new HikariConfig();
-                    config.setJdbcUrl(connectionString);
-                    config.setUsername(username);
-                    config.setPassword(password);
-                    config.setMinimumIdle(hikariConfig.getMinimumIdle());
-                    config.setMaximumPoolSize(hikariConfig.getMaximumPoolSize());
-                    config.setIdleTimeout(hikariConfig.getIdleTimeout());
-                    config.setMaxLifetime(hikariConfig.getMaxLifetime());
-                    DataSource dataSource = new HikariDataSource(config);
+                    HikariConfig hc = new HikariConfig();
+                    hc.setJdbcUrl(connectionString);
+                    hc.setUsername(username);
+                    hc.setPassword(password);
+                    hc.setMinimumIdle(hikariConfig.getMinimumIdle());
+                    hc.setMaximumPoolSize(hikariConfig.getMaximumPoolSize());
+                    hc.setIdleTimeout(hikariConfig.getIdleTimeout());
+                    hc.setMaxLifetime(hikariConfig.getMaxLifetime());
+                    DataSource dataSource = new HikariDataSource(hc);
+                    DataSource dataSourceProxy = null;
+                    if (config.isDatasourceProxyEnabled()) {
+                        dataSourceProxy = ProxyDataSourceBuilder.create(dataSource).logQueryBySlf4j(SLF4JLogLevel.INFO).build();
+                    }
                     Configuration configuration = new Configuration();
                     sessionFactory = configuration.buildSessionFactory(
                             new StandardServiceRegistryBuilder()
                                     .applySettings(configuration.getProperties())
-                                    .applySetting(Environment.DATASOURCE, dataSource)
+                                    .applySetting(Environment.DATASOURCE, dataSourceProxy != null ? dataSourceProxy : dataSource)
                                     .applySetting(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread")
                                     .build());
                     connectionMap.put(connectionString, sessionFactory);
