@@ -36,7 +36,6 @@ import net.ttddyy.dsproxy.listener.logging.SLF4JLogLevel;
 import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 
 /* For SQL tracing */
-@Component
 class DatasourceProxyBeanPostProcessor implements BeanPostProcessor {
 
     @Override
