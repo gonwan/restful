@@ -223,9 +223,9 @@ public class SqlGenerator {
                     CCJSqlParser sqlParser = null;
                     String c = request.getConditions().toLowerCase().trim();
                     if (c.startsWith("group by") || c.startsWith("order by")) {
-                        sqlParser = new CCJSqlParser(new StringReader(SQL_DUMMY_QUERY + request.getConditions()));
+                        sqlParser = new CCJSqlParser(SQL_DUMMY_QUERY + request.getConditions());
                     } else {
-                        sqlParser = new CCJSqlParser(new StringReader(SQL_DUMMY_QUERY + "where " + request.getConditions()));
+                        sqlParser = new CCJSqlParser(SQL_DUMMY_QUERY + "where " + request.getConditions());
                     }
                     PlainSelect plainSelect = sqlParser.PlainSelect();
                     Expression where = plainSelect.getWhere();
