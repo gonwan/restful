@@ -34,9 +34,13 @@ public class MainController {
     @Autowired
     private MainService mainService;
 
+    /* See: https://blog.neospot.top/archives/11 */
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
     @PostMapping(path = "/login", produces = "application/json;charset=utf-8")
-    public Callable<Object> login(@RequestBody @Valid LoginRequest request, HttpServletRequest req) {
-        return new RestfulCallable(req, () -> {
+    public Callable<Object> login(@RequestBody @Valid LoginRequest request) {
+        return new RestfulCallable(httpServletRequest, () -> {
             logger.info("Login: {}", request.getUsername());
             loginService.login(request);
             return ResponseBase.OK;
@@ -44,8 +48,8 @@ public class MainController {
     }
 
     @PostMapping(path = "/reload", produces = "application/json;charset=utf-8")
-    public Callable<Object> reload(@RequestBody @Valid ReloadRequest request, HttpServletRequest req) {
-        return new RestfulCallable(req, () -> {
+    public Callable<Object> reload(@RequestBody @Valid ReloadRequest request) {
+        return new RestfulCallable(httpServletRequest, () -> {
             logger.info("Reload: {}", request.getDataType());
             mainService.reload(request);
             return ResponseBase.OK;
@@ -53,8 +57,8 @@ public class MainController {
     }
 
     @PostMapping(path = "/getrowcount", produces = "application/json;charset=utf-8")
-    public Callable<Object> getRowCount(@RequestBody @Valid GetRowCountRequest request, HttpServletRequest req) {
-        return new RestfulCallable(req, () -> {
+    public Callable<Object> getRowCount(@RequestBody @Valid GetRowCountRequest request) {
+        return new RestfulCallable(httpServletRequest, () -> {
             logger.info("GetRowCount: {}", request.getApiName());
             long res = mainService.getRowCount(request);
             GetRowCountResponse response = new GetRowCountResponse(ResponseBase.OK.getCode(), ResponseBase.OK.getMessage(), res);
@@ -63,8 +67,8 @@ public class MainController {
     }
 
     @PostMapping(path = "/runapi", produces = "application/json;charset=utf-8")
-    public Callable<Object> runApi(@RequestBody @Valid RunApiRequest request, HttpServletRequest req) {
-        return new RestfulCallable(req, () -> {
+    public Callable<Object> runApi(@RequestBody @Valid RunApiRequest request) {
+        return new RestfulCallable(httpServletRequest, () -> {
             logger.info("RunApi: {}", request.getApiName());
             Object res = mainService.runApi(request);
             ResultTableResponse response = new ResultTableResponse(
